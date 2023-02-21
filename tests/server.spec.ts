@@ -38,5 +38,8 @@ describe('server', () => {
     it('responds with status 201', () => {
       expect(response.status).toEqual(201);
     });
+    it('responds with a confirmation message', () => {
+      expect(response.body.message).toEqual('OK');
+    });
   });
 });

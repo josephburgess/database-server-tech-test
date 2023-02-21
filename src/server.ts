@@ -10,7 +10,7 @@ export function createServer(): express.Express {
     if (Object.keys(req.query).length === 0) {
       return res.status(204).send();
     } else {
-      return res.status(201).send();
+      return res.status(201).json({ message: 'OK' });
     }
   });
 
