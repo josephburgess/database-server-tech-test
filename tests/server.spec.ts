@@ -1,22 +1,42 @@
-import request from 'supertest';
+import { Application } from 'express';
+import request, { Response } from 'supertest';
 import { createServer } from '../src/server';
 
 describe('server', () => {
-  const app = createServer();
+  let app: Application;
 
-  it('should set a key value pair', async () => {
-    const setResponse = await request(app)
-      .put('/set')
-      .query({ key: 'value' })
-      .expect(201);
+  beforeAll(() => {
+    app = createServer();
   });
 
-  it('should get a key value pair', async () => {
-    const setResponse = await request(app)
-      .get('/get')
-      .query({ key: 'somekey' })
-      .expect(200);
+  describe('without a query parameter', () => {
+    let response: Response;
+    beforeEach(async () => {
+      response = await request(app).put('/set');
+    });
 
-    expect(setResponse.text).toBe('The value of key somekey is somevalue');
+    it('responds with status 204', () => {
+      expect(response.status).toEqual(204);
+    });
+
+    it('has no body', () => {
+      expect(response.body).toEqual({});
+    });
+
+    it('does nothing to memory', () => {
+      expect(app.locals.memory).toEqual({});
+    });
+  });
+
+  describe('with one query parameter', () => {
+    let response: Response;
+
+    beforeEach(async () => {
+      response = await request(app).put('/set?name=Foo');
+    });
+
+    it('responds with status 201', () => {
+      expect(response.status).toEqual(201);
+    });
   });
 });
