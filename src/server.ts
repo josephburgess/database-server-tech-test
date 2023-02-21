@@ -10,6 +10,7 @@ export function createServer(): express.Express {
     if (Object.keys(req.query).length === 0) {
       return res.status(204).send();
     } else {
+      Object.assign(req.app.locals.memory, req.query);
       return res.status(201).json({ message: 'OK' });
     }
   });
