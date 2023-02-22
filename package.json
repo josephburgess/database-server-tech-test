@@ -4,8 +4,8 @@
   "description": "Express.js server for getting and setting key value pairs",
   "main": "server.ts",
   "scripts": {
-    "test": "TEST=true npx jest",
-    "start": "npx nodemon server.ts"
+    "test": "npx jest",
+    "start": "npx nodemon --delay 500ms server.ts"
   },
   "keywords": [],
   "author": "",
