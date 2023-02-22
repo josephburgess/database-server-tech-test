@@ -80,8 +80,34 @@ describe('server', () => {
       expect(response.body.message).toEqual('OK');
     });
 
-    it('updates the app memory', () => {
+    it('updates the app memory with both queries', () => {
       expect(app.locals.memory).toEqual({ name: 'Foo', occupation: 'Bar' });
+    });
+    describe('with a second request', () => {
+      it('can update a single key', async () => {
+        response = await request(app).put('/set?name=Bar');
+        expect(app.locals.memory).toEqual({ name: 'Bar', occupation: 'Bar' });
+      });
+      it('can update one key and add a new one', async () => {
+        response = await request(app).put('/set?name=Bar&hobby=FooBar');
+        expect(app.locals.memory).toEqual({
+          name: 'Bar',
+          occupation: 'Bar',
+          hobby: 'FooBar',
+        });
+      });
+      it('can add several new keys', async () => {
+        response = await request(app).put(
+          '/set?fruit=Apple&city=Tokyo&instrument=Guitar'
+        );
+        expect(app.locals.memory).toEqual({
+          name: 'Foo',
+          occupation: 'Bar',
+          fruit: 'Apple',
+          city: 'Tokyo',
+          instrument: 'Guitar',
+        });
+      });
     });
   });
 });
