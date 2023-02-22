@@ -1,19 +1,14 @@
 import express from 'express';
-import { Request, Response, NextFunction } from 'express';
+import { setController } from './controllers/setController';
 
-export function createServer(): express.Express {
-  const app = express();
-  app.locals.memory = {};
-  app.use(express.urlencoded({ extended: true }));
+const app = express();
 
-  app.put('/set', (req: Request, res: Response) => {
-    if (Object.keys(req.query).length === 0) {
-      return res.status(204).send();
-    } else {
-      Object.assign(req.app.locals.memory, req.query);
-      return res.status(201).json({ message: 'OK' });
-    }
-  });
+app.use(express.urlencoded({ extended: true }));
 
-  return app;
-}
+app.locals.memory = {};
+
+app.put('/set', setController);
+
+app.listen(4000, () => {
+  console.log('Server running on port 4000');
+});

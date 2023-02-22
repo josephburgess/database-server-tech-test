@@ -1,16 +1,21 @@
 import { Application } from 'express';
 import request, { Response } from 'supertest';
-import { createServer } from '../src/server';
+import express from 'express';
+import { setController } from '../src/controllers/setController';
 
 describe('server', () => {
   let app: Application;
 
   beforeAll(() => {
-    app = createServer();
+    app = express();
+    app.use(express.urlencoded({ extended: true }));
+    app.locals.memory = {};
+    app.put('/set', setController);
   });
 
   describe('without a query parameter', () => {
     let response: Response;
+
     beforeEach(async () => {
       response = await request(app).put('/set');
     });
@@ -105,6 +110,7 @@ describe('server', () => {
           occupation: 'Bar',
           fruit: 'Apple',
           city: 'Tokyo',
+          hobby: 'FooBar',
           instrument: 'Guitar',
         });
       });
