@@ -1,5 +1,6 @@
 import express from 'express';
 import { setRouter } from './src/routes/setRouter';
+import { getRouter } from './src/routes/getRouter';
 const port = 4000;
 
 export const app = express();
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.locals.memory = {};
 
 app.use('/set', setRouter);
+app.use('/get', getRouter);
 
 if (!process.env.TEST) {
   app.listen(port, () => {
