@@ -45,6 +45,14 @@ describe('server', () => {
     it('updates the app memory', () => {
       expect(app.locals.memory).toEqual({ name: 'Foo' });
     });
+
+    describe('with a second request', () => {
+      let response: Response;
+      it('changes nothing with an empty request', async () => {
+        response = await request(app).put('/set');
+        expect(app.locals.memory).toEqual({ name: 'Foo' });
+      });
+    });
   });
 
   describe('with two query parameters', () => {
