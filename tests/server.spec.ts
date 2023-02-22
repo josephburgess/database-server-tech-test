@@ -46,4 +46,23 @@ describe('server', () => {
       expect(app.locals.memory).toEqual({ name: 'Foo' });
     });
   });
+
+  describe('with two query parameters', () => {
+    let response: Response;
+
+    beforeEach(async () => {
+      response = await request(app).put('/set?name=Foo&occupation=Bar');
+    });
+
+    it('responds with status 201', () => {
+      expect(response.status).toEqual(201);
+    });
+    it('responds with a confirmation message', () => {
+      expect(response.body.message).toEqual('OK');
+    });
+
+    it('updates the app memory', () => {
+      expect(app.locals.memory).toEqual({ name: 'Foo', occupation: 'Bar' });
+    });
+  });
 });
