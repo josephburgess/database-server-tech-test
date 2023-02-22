@@ -47,10 +47,21 @@ describe('server', () => {
     });
 
     describe('with a second request', () => {
-      let response: Response;
       it('changes nothing with an empty request', async () => {
         response = await request(app).put('/set');
         expect(app.locals.memory).toEqual({ name: 'Foo' });
+      });
+      it('should not change anything when sending the same request', async () => {
+        response = await request(app).put('/set?name=Foo');
+        expect(app.locals.memory).toEqual({ name: 'Foo' });
+      });
+      it('should replace original query if sent the same key with new value', async () => {
+        response = await request(app).put('/set?name=Bar');
+        expect(app.locals.memory).toEqual({ name: 'Bar' });
+      });
+      it('should add a second key value pair with a new key in the query', async () => {
+        response = await request(app).put('/set?occupation=Bar');
+        expect(app.locals.memory).toEqual({ name: 'Foo', occupation: 'Bar' });
       });
     });
   });
