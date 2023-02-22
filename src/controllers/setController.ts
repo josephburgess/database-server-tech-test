@@ -4,11 +4,15 @@ interface Memory {
   [key: string]: string;
 }
 
-export function setController(req: Request, res: Response) {
-  if (Object.keys(req.query).length === 0) {
-    return res.status(204).json({ message: 'No query specified' });
+export function setController(req: Request, res: Response): void {
+  const memory: Memory = req.app.locals.memory;
+  const query = req.query;
+  if (Object.keys(query).length === 0) {
+    res.status(204).json({ message: 'No query specified' });
+    return;
   } else {
-    Object.assign(req.app.locals.memory, req.query);
-    return res.status(201).json({ message: 'OK' });
+    Object.assign(memory, req.query);
+    res.status(201).json({ message: 'OK' });
+    return;
   }
 }
