@@ -1,6 +1,6 @@
 import express from 'express';
 import { setRouter } from './src/routes/setRouter';
-const port = 4001;
+const port = 4000;
 
 export const app = express();
 

@@ -1,7 +1,7 @@
 {
   "name": "database-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express.js server for getting and setting key value pairs",
   "main": "server.ts",
   "scripts": {
     "test": "TEST=true npx jest",
@@ -25,5 +25,16 @@
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephburgess/database-server-tech-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josephburgess/database-server-tech-test/issues"
+  },
+  "homepage": "https://github.com/josephburgess/database-server-tech-test#readme"
 }
