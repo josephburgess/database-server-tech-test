@@ -5,5 +5,14 @@ interface Memory {
 }
 
 export function getController(req: Request, res: Response): void {
-  res.status(400).json({ message: 'Bad request' });
+  const memory: Memory = req.app.locals.memory;
+  const key = req.query.key as string;
+  if (!key) {
+    res.status(400).json({ message: 'Bad request' });
+    return;
+  } else if (key in memory) {
+    const message = memory[key];
+    res.status(200).json({ message });
+    return;
+  }
 }

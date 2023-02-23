@@ -11,7 +11,7 @@ export function setController(req: Request, res: Response): void {
     res.status(204).json({ message: 'No query specified' });
     return;
   } else {
-    Object.assign(memory, req.query);
+    Object.assign(memory, query);
     res.status(201).json({ message: 'OK' });
     return;
   }
