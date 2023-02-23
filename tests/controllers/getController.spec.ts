@@ -27,7 +27,7 @@ describe('getController', () => {
     });
   });
 
-  describe('a key query parameter', () => {
+  describe('with a key query parameter', () => {
     beforeEach(() => {
       app.locals.memory = { name: 'Foo', occupation: 'Bar' };
     });
@@ -41,9 +41,13 @@ describe('getController', () => {
         response = await request(app).get('/get?key=name');
         expect(response.body.message).toEqual('OK');
       });
-      it('responds with the value of the key', async () => {
+      it('responds with the value of name', async () => {
         response = await request(app).get('/get?key=name');
         expect(response.body.value).toEqual('Foo');
+      });
+      it('responds with the value of occupation', async () => {
+        response = await request(app).get('/get?key=occupation');
+        expect(response.body.value).toEqual('Bar');
       });
     });
     describe('when the key does not exist in memory', () => {
@@ -53,7 +57,7 @@ describe('getController', () => {
       });
       it('responds with a status message', async () => {
         response = await request(app).get('/get?key=hobby');
-        expect(response.body.message).toEqual('Key not found');
+        expect(response.body.message).toEqual("Key 'hobby' not found");
       });
     });
   });
