@@ -11,8 +11,8 @@ export function getController(req: Request, res: Response): void {
     res.status(400).json({ message: 'Bad request' });
     return;
   } else if (key in memory) {
-    const message = memory[key];
-    res.status(200).json({ message });
+    const value = memory[key];
+    res.status(200).json({ value, message: 'OK' });
     return;
   }
 }

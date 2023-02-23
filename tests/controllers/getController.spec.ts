@@ -37,9 +37,13 @@ describe('getController', () => {
         response = await request(app).get('/get?key=name');
         expect(response.status).toEqual(200);
       });
+      it('responds with a status message', async () => {
+        response = await request(app).get('/get?key=name');
+        expect(response.body.message).toEqual('OK');
+      });
       it('responds with the value of the key', async () => {
         response = await request(app).get('/get?key=name');
-        expect(response.body.message).toEqual('Foo');
+        expect(response.body.value).toEqual('Foo');
       });
     });
   });
