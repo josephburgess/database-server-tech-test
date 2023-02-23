@@ -14,5 +14,7 @@ export function getController(req: Request, res: Response): void {
     const value = memory[key];
     res.status(200).json({ value, message: 'OK' });
     return;
+  } else {
+    res.status(404).json({ message: 'Key not found' });
   }
 }

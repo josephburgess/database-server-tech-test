@@ -46,5 +46,15 @@ describe('getController', () => {
         expect(response.body.value).toEqual('Foo');
       });
     });
+    describe('when the key does not exist in memory', () => {
+      it('responds with status 404', async () => {
+        response = await request(app).get('/get?key=hobby');
+        expect(response.status).toEqual(404);
+      });
+      it('responds with a status message', async () => {
+        response = await request(app).get('/get?key=hobby');
+        expect(response.body.message).toEqual('Key not found');
+      });
+    });
   });
 });
