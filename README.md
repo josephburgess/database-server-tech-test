@@ -57,6 +57,7 @@ GET localhost:4000/get?key=occupation
 # HTTP Response status: 200 (OK)
 # body: { message: "OK", value: "Bar" }
 
+
 # Fails with 404 if the key isn't set
 GET localhost:4000/get?key=hobby
 # HTTP Response status: 404 (NOT FOUND)
